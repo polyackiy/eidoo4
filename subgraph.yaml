@@ -1,0 +1,62 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: mainnet
+    source:
+      address: "0x89Ab32156e46F46D02ade3FEcbe5Fc4243B9AAeD"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - AdminOperatorChange
+        - AdminTransferInvoked
+        - Approval
+        - AuthorizedOperator
+        - Burned
+        - InflationMint
+        - Minted
+        - OwnershipTransferred
+        - Paused
+        - RelayHubChanged
+        - RevokedOperator
+        - Sent
+        - Transfer
+        - Unpaused
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: AdminOperatorChange(address,address)
+          handler: handleAdminOperatorChange
+        - event: AdminTransferInvoked(address)
+          handler: handleAdminTransferInvoked
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AuthorizedOperator(indexed address,indexed address)
+          handler: handleAuthorizedOperator
+        - event: Burned(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleBurned
+        - event: InflationMint(uint256,uint256,address)
+          handler: handleInflationMint
+        - event: Minted(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleMinted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: RelayHubChanged(indexed address,indexed address)
+          handler: handleRelayHubChanged
+        - event: RevokedOperator(indexed address,indexed address)
+          handler: handleRevokedOperator
+        - event: Sent(indexed address,indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleSent
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/mapping.ts
